@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Not A Resume — A Pitch</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #07070C;
+    --void: #0D0D18;
+    --card: #111120;
+    --border: rgba(139,92,246,0.15);
+    --violet: #8B5CF6;
+    --violet-bright: #A78BFA;
+    --lime: #BFFF00;
+    --lime-dim: rgba(191,255,0,0.1);
+    --white: #F4F4FF;
+    --muted: rgba(244,244,255,0.45);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.6;
+  }
+
+  /* ─── GLOWS ─── */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    animation: drift1 12s ease-in-out infinite alternate;
+  }
+  .glow-orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(191,255,0,0.08) 0%, transparent 70%);
+    bottom: 10%; right: -100px;
+    animation: drift2 15s ease-in-out infinite alternate;
+  }
+  @keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(60px, 80px); } }
+  @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-80px, -60px); } }
+
+  /* ─── WRAPPER ─── */
+  .wrap { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 0 28px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(18px);
+    background: rgba(7,7,12,0.6);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800; font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .nav-logo span { color: var(--lime); }
+  .nav-pill {
+    background: var(--lime-dim);
+    border: 1px solid rgba(191,255,0,0.3);
+    color: var(--lime);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px; border-radius: 99px;
+    animation: pulse-border 3s ease-in-out infinite;
+  }
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 0 0 rgba(191,255,0,0.2); }
+    50% { box-shadow: 0 0 0 6px rgba(191,255,0,0); }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; display: block;
+    width: 32px; height: 1px;
+    background: var(--border);
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 6.5vw, 64px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.045em;
+    margin-bottom: 8px;
+  }
+  .hero-title .accent { color: var(--violet-bright); }
+  .hero-title .lime-accent { color: var(--lime); }
+  .hero-sub {
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-disclaimer {
+    display: inline-block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.65;
+    font-style: italic;
+  }
+  .hero-disclaimer strong { color: var(--white); font-style: normal; font-weight: 500; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 52px 0; }
+
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--violet);
+    margin-bottom: 40px;
+  }
+  .section-label::after {
+    content: ''; flex: 1;
+    height: 1px; background: var(--border);
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .section-title .hi { color: var(--violet-bright); }
+
+  .section-body {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+    margin-bottom: 32px; font-weight: 300;
+  }
+
+  /* ─── MATCH CARDS ─── */
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
+
+  .match-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .match-card:hover {
+    border-color: rgba(139,92,246,0.4);
+    transform: translateY(-3px);
+  }
+  .match-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent);
+  }
+  .card-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    background: rgba(191,255,0,0.08);
+    border: 1px solid rgba(191,255,0,0.25);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .card-body {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.65; font-weight: 300;
+  }
+
+  /* ─── PROOF BLOCKS ─── */
+  .proof-stack { display: flex; flex-direction: column; gap: 2px; }
+  .proof-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex; gap: 20px; align-items: flex-start;
+    transition: border-color 0.3s;
+  }
+  .proof-item:hover { border-color: rgba(139,92,246,0.35); }
+  .proof-num {
+    font-family: var(--font-head);
+    font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+    color: var(--violet);
+    min-width: 28px; padding-top: 2px;
+    text-transform: uppercase;
+  }
+  .proof-content {}
+  .proof-title {
+    font-family: var(--font-head);
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 6px; color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .proof-desc { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* ─── TAGS ROW ─── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    padding: 5px 12px; border-radius: 99px;
+    text-transform: uppercase;
+  }
+  .tag-violet {
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.3);
+    color: var(--violet-bright);
+  }
+  .tag-lime {
+    background: rgba(191,255,0,0.08);
+    border: 1px solid rgba(191,255,0,0.25);
+    color: var(--lime);
+  }
+
+  /* ─── CRITERIA CHECKLIST ─── */
+  .criteria-list { display: flex; flex-direction: column; gap: 16px; }
+  .criteria-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+  .criteria-item:hover {
+    border-color: rgba(191,255,0,0.2);
+    background: rgba(17,17,32,0.9);
+  }
+  .criteria-icon {
+    width: 32px; height: 32px; min-width: 32px;
+    background: rgba(191,255,0,0.07);
+    border: 1px solid rgba(191,255,0,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .criteria-text {}
+  .criteria-label {
+    font-family: var(--font-head);
+    font-size: 13px; font-weight: 700;
+    color: var(--white); margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .criteria-answer { font-size: 13px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+  .criteria-answer em { color: var(--violet-bright); font-style: normal; font-weight: 500; }
+
+  /* ─── SAMPLE CONTENT ─── */
+  .samples-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 560px) { .samples-row { grid-template-columns: 1fr; } }
+  .sample-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .sample-card:hover { border-color: rgba(139,92,246,0.4); transform: translateY(-4px); }
+  .sample-card::after {
+    content: '↗';
+    position: absolute; top: 16px; right: 16px;
+    font-size: 14px; color: var(--muted);
+    transition: color 0.3s, transform 0.3s;
+  }
+  .sample-card:hover::after { color: var(--lime); transform: translate(2px,-2px); }
+  .sample-type {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--violet);
+    margin-bottom: 10px;
+  }
+  .sample-title {
+    font-family: var(--font-head);
+    font-size: 14px; font-weight: 700;
+    color: var(--white); line-height: 1.3;
+    margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .sample-desc { font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300; margin-bottom: 14px; }
+  .sample-meta {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(139,92,246,0.6);
+    border-top: 1px solid var(--border); padding-top: 12px; margin-top: auto;
+  }
+  a.sample-card {
+    display: flex; flex-direction: column;
+    color: var(--white);
+    text-decoration: none;
+  }
+  a.sample-card .sample-title { color: var(--white); }
+  a.sample-card .sample-desc { color: var(--muted); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 100px 0 120px;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .cta-title { margin-bottom: 28px; }
+  .cta-q {
+    font-family: var(--font-head);
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--muted);
+    margin-bottom: 4px;
+    -webkit-text-stroke: 1px rgba(139,92,246,0.5);
+    color: transparent;
+  }
+  .cta-a {
+    font-family: var(--font-head);
+    font-size: clamp(64px, 14vw, 130px);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.05em;
+    color: var(--lime);
+    text-shadow: 0 0 80px rgba(191,255,0,0.25);
+  }
+  .cta-sub {
+    font-size: 15px; color: var(--muted);
+    margin-bottom: 40px; font-weight: 300;
+    max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--lime);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 12px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .cta-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 40px rgba(191,255,0,0.3);
+  }
+  .cta-btn .arrow { font-size: 18px; transition: transform 0.2s; }
+  .cta-btn:hover .arrow { transform: translateX(4px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-left { font-size: 12px; color: var(--muted); font-weight: 300; }
+  .footer-right { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ─── ANIMATIONS ─── */
+  .js-loaded .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .js-loaded .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .js-loaded .fade-up:nth-child(2) { transition-delay: 0.08s; }
+  .js-loaded .fade-up:nth-child(3) { transition-delay: 0.16s; }
+  .js-loaded .fade-up:nth-child(4) { transition-delay: 0.24s; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.4); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Not a résumé<span>.</span> A pitch.</div>
+  <div class="nav-pill">✦ Open to work</div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-eyebrow">Organic Marketing · Content · Growth</div>
+    <h1 class="hero-title">
+      Here's why<br>
+      you <span class="accent">need</span> me<br>
+      on the <span class="lime-accent">team.</span>
+    </h1>
+    <p class="hero-sub">No PDFs. No clunky templates. Just direct answers to exactly what you're looking for.</p>
+    <div class="hero-disclaimer">
+      <strong>Real talk first:</strong> I just watched two of your YouTube ads end-to-end. No skip. Genuinely blown away by the storytelling — making a boring field actually feel <strong>alive</strong>. That's when I knew I had to pitch you directly.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPANY FIT -->
+  <section>
+    <div class="section-label">01 — Company alignment</div>
+    <h2 class="section-title">Built for <span class="hi">this</span> environment</h2>
+    <p class="section-body">Some people need process, approvals, and a 12-person review cycle. I am not that person.</p>
+    <div class="cards-grid">
+      <div class="match-card fade-up">
+        <div class="card-check">⚡</div>
+        <div class="card-title">Lean team of 3? Perfect.</div>
+        <div class="card-body">Less bureaucracy, more building. I've spent my career in agile startup teams where everyone wears multiple hats and communication is direct, fast, and honest.</div>
+      </div>
+      <div class="match-card fade-up">
+        <div class="card-check">🔥</div>
+        <div class="card-title">Fast-paced is my fuel.</div>
+        <div class="card-body">Three startups deep. Not because I had to — because slow-moving companies kill momentum. I live for the velocity of early-stage where every week compounds.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ROLE MATCH -->
+  <section>
+    <div class="section-label">02 — The role, point by point</div>
+    <h2 class="section-title">Organic is my <span class="hi">only</span> channel</h2>
+    <p class="section-body">I don't dabble. Organic is where I've spent 100% of my focus — here's the actual proof stack:</p>
+    <div class="proof-stack">
+      <div class="proof-item fade-up">
+        <div class="proof-num">→</div>
+        <div class="proof-content">
+          <div class="proof-title">End-to-end Content System for a Tender AI SaaS</div>
+          <div class="proof-desc">Built the full content engine from zero — long-form SEO & GEO-optimised blog content, research and user insight pipelines, distribution to LinkedIn, landing page builds, and lead magnet design. Not executing on briefs; I was thinking and shipping ideas to the founder constantly.</div>
+        </div>
+      </div>
+      <div class="proof-item fade-up">
+        <div class="proof-num">→</div>
+        <div class="proof-content">
+          <div class="proof-title">Newsletters — built personal ones, then automated them</div>
+          <div class="proof-desc">Started personal newsletters out of genuine curiosity. Then built agentic Zapier systems to scrape the latest insights and pipe them into a newsletter format automatically. Infrastructure, not just writing.</div>
+        </div>
+      </div>
+      <div class="proof-item fade-up">
+        <div class="proof-num">→</div>
+        <div class="proof-content">
+          <div class="proof-title">Thought leadership at the intersection of business, tech & AI</div>
+          <div class="proof-desc">Regularly publishing articles in this space. Currently doing literature reviews and translating dense academic AI research into compelling public media for an AI SaaS company. Making the complex feel human.</div>
+        </div>
+      </div>
+      <div class="proof-item fade-up">
+        <div class="proof-num">→</div>
+        <div class="proof-content">
+          <div class="proof-title">Reddit GTM strategy — live right now</div>
+          <div class="proof-desc">Setting up a full Reddit strategy for a startup preparing to launch. Scoped common FAQs, designed content around real audience questions, posting organic answers — building a funnel into LinkedIn, website, and a Kickstarter campaign.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag tag-violet">SEO / GEO</span>
+      <span class="tag tag-violet">LinkedIn Content</span>
+      <span class="tag tag-violet">Newsletter Systems</span>
+      <span class="tag tag-violet">Zapier Automation</span>
+      <span class="tag tag-violet">Reddit Strategy</span>
+      <span class="tag tag-lime">Landing Pages</span>
+      <span class="tag tag-lime">Lead Magnets</span>
+      <span class="tag tag-lime">Thought Leadership</span>
+      <span class="tag tag-lime">Academic → Public Media</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CRITERIA CHECK -->
+  <section>
+    <div class="section-label">03 — Your ideal candidate checklist</div>
+    <h2 class="section-title">Let's go <span class="hi">line by line</span></h2>
+    <div class="criteria-list">
+      <div class="criteria-item fade-up">
+        <div class="criteria-icon">✓</div>
+        <div class="criteria-text">
+          <div class="criteria-label">Emotional intelligence + instinct for what resonates</div>
+          <div class="criteria-answer">Studied Psychology and Business — not as a credential flex, but because it means I go a layer deeper. I think about what will <em>actually land</em>, what emotional response it triggers, and what action it drives from a real human. Content without psychology is just noise.</div>
+        </div>
+      </div>
+      <div class="criteria-item fade-up">
+        <div class="criteria-icon">✓</div>
+        <div class="criteria-text">
+          <div class="criteria-label">Bias to action</div>
+          <div class="criteria-answer">I get genuinely frustrated with inaction. I would rather <em>ship and iterate</em> than wait for the perfect moment that never comes. Done and learning beats perfect and paralysed every time.</div>
+        </div>
+      </div>
+      <div class="criteria-item fade-up">
+        <div class="criteria-icon">✓</div>
+        <div class="criteria-text">
+          <div class="criteria-label">Brand writing for multiple SaaS companies</div>
+          <div class="criteria-answer">Tender AI SaaS, AI research company translating academic content, and startup GTM work — each with a distinct brand voice I had to understand, capture, and then build content within. <em>Adaptability is the skill.</em></div>
+        </div>
+      </div>
+      <div class="criteria-item fade-up">
+        <div class="criteria-icon">✓</div>
+        <div class="criteria-text">
+          <div class="criteria-label">Journalism / editorial background</div>
+          <div class="criteria-answer">Done deep-dive founder content research, run Substacks for personal creative writing, and I'm <em>always writing</em> — articles, essays, breakdowns. It's not a job requirement for me. It's just what I do.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SAMPLE WORK -->
+  <section>
+    <div class="section-label">04 — Sample work</div>
+    <h2 class="section-title">Read the <span class="hi">work</span>, not the CV</h2>
+    <p class="section-body">Three pieces. Different formats. Same through-line — content that actually does something.</p>
+    <div class="samples-row">
+      <a class="sample-card fade-up" href="https://medium.com/@kira.com/what-is-aeo-and-why-does-it-matter-for-your-business-6d507a2fff7c?postPublishedType=repub" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="sample-type">Thought leadership · Medium</div>
+        <div class="sample-title">AEO vs SEO — What Is Answer Engine Optimisation &amp; Why It Matters</div>
+        <div class="sample-desc">Breaking down how AI is reshaping search visibility — written for business owners who need to understand the shift without drowning in jargon.</div>
+        <div class="sample-meta">4 min read · Dec 2025</div>
+      </a>
+      <a class="sample-card fade-up" href="https://medium.com/@kira.com/what-is-aeo-and-why-does-it-matter-for-your-business-6d507a2fff7c?postPublishedType=repub" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="sample-type">Audit &amp; Analysis · Medium</div>
+        <div class="sample-title">Claude Onboarding Audit — Inside a Real AI Content Analysis</div>
+        <div class="sample-desc">A detailed audit walkthrough translating AI tool outputs into actionable content strategy. Research-to-insight, made readable.</div>
+        <div class="sample-meta">Deep-dive · AI × Strategy</div>
+      </a>
+      <a class="sample-card fade-up" href="https://holly-culotte-ea4.notion.site/SaaS-Writing-Examples-320b9cb0eccc8035affaf3867c46f4cc" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="sample-type">SaaS Writing · Notion</div>
+        <div class="sample-title">SaaS Writing Portfolio — Brand Copy, Landing Pages &amp; More</div>
+        <div class="sample-desc">A curated set of SaaS brand writing across multiple companies — landing pages, lead magnets, and conversion copy with distinct voices.</div>
+        <div class="sample-meta">Multi-brand · B2B SaaS</div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <div class="cta-eyebrow">The only question left</div>
+    <div class="cta-title">
+      <div class="cta-q">Ready to grind?</div>
+      <div class="cta-a">HELL<br>YES.</div>
+    </div>
+    <p class="cta-sub">You bring the vision and the brief. I'll handle the rest — fast.</p>
+    <a class="cta-btn" href="mailto:Kira.rgoodwin@gmail.com">
+      Let's chat <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Built different. Designed to be read, not filed.</div>
+  <div class="footer-right">Organic Marketing · 2025</div>
+</footer>
+
+<script>
+  // Mark JS as loaded so fade-up animations activate
+  document.body.classList.add('js-loaded');
+
+  // Intersection observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Stagger cards within grids
+  document.querySelectorAll('.cards-grid, .samples-row, .criteria-list, .proof-stack').forEach(grid => {
+    grid.querySelectorAll('.fade-up').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.07}s`;
+    });
+  });
+</script>
+    
